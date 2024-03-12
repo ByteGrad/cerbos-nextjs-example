@@ -1,0 +1,23 @@
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: expense
+  rules:
+    # 1) Users can only view & edit their own expenses (owner of the resource)
+    - actions: ["view", "edit"]
+      effect: EFFECT_ALLOW
+      roles:
+        - USER
+      condition:
+        match:
+          expr: request.resource.attr.createdBy == request.principal.id
+
+    # 2) Managers can view, edit & approve all expenses up to $5000
+    - actions: ["view", "edit", "approve"]
+      effect: EFFECT_ALLOW
+      roles:
+        - MANAGER
+      condition:
+        match:
+          expr: request.resource.attr.amount < 5000

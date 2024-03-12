@@ -1,0 +1,7 @@
+docker run --rm --name cerbos \
+  -p 3592:3592 -p 3593:3593 \
+  -e CERBOS_HUB_BUNDLE="latest" \
+  -e CERBOS_HUB_WORKSPACE_SECRET="" \
+  -e CERBOS_HUB_CLIENT_ID="" \
+  -e CERBOS_HUB_CLIENT_SECRET="" \
+  ghcr.io/cerbos/cerbos:latest server
